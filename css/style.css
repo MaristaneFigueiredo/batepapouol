@@ -65,15 +65,16 @@ body{
 
 .painel-msgs{
 	background-color: #E5E5E5;
+	background: #E5E5E5;
 	margin-top: 2px;
 	margin-bottom: 2px;
 	
-	width: 100%;
+	width: 375px;
 	padding-top: 26px;
 	
-	/* height:507px; */
-	height:765px;
-	/* height:auto; */
+	height:735px; 
+	/* height:100%; */
+	 /* height:auto;  */
 	
 }
 
@@ -87,7 +88,7 @@ body{
 	display: flex;
 	align-items: center;
 
-	margin-top: 4px;
+	margin-top: 6px;
 }
 .msg-normal{
 	background: #FFFFFF;
@@ -98,7 +99,7 @@ body{
 	padding-left: 7px;
 	display: flex;
 	align-items: center;
-	margin-top: 4px;
+	margin-top: 6px;
 }
 .msg-status{
 	background: #DCDCDC;
@@ -109,7 +110,7 @@ body{
 	padding-left: 7px;
 	display: flex;
 	align-items: center;
-	margin-top: 4px;
+	margin-top: 6px;
 }
 
 .rodape{
