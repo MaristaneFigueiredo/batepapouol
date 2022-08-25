@@ -143,11 +143,11 @@ function buscarDadosBatePapo() {
    
   }
 
-  let mensagemenviada;
+
   function enviarMsg() {
     console.log('entrei aqui');
-     mensagemenviada = document.querySelector('.rodape .texto').value;
-     console.log('mensagemenviada', mensagemenviada);
+     const mensagemenviada = document.querySelector('.rodape .texto').value;
+     console.log(mensagemenviada);
     
     const mensagem = {
         from: nomeUsuario,
@@ -158,16 +158,11 @@ function buscarDadosBatePapo() {
     const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",mensagem);
     promessa.then(mensagemSucesso);
     promessa.catch(tratarErroEnvio); // Agenda para tratar algum erro;
-    mensagemenviada = '';
+   
   }
 
   function mensagemSucesso() {
- 
-
-    console.log('Sua msg foi enviada!')
-    // mensagemenviada = document.querySelector('.rodape .texto').value;
-    // console.log('mensagemenviada -depois que a msg deu certo', mensagemenviada)
-    // mensagemenviada.value = "";
+     console.log('Sua msg foi enviada!')
   }
 
   function tratarErroEnvio() {
