@@ -161,6 +161,7 @@ function buscarDadosBatePapo() {
     mensagemenviada = '';
   }
 
+  /*parei aqui */
   function mensagemSucesso() {
     /*obter novamente as mensagens do servidor e atualizar o chat*/
 
