@@ -82,18 +82,11 @@ body{
 	background: #FFDEDE;
 	border-radius: 2px;
 
-    font-family: 'Roboto';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 16px;
-
 	width: 375px;
 	height: 40px;
 	padding-left: 7px;
 	display: flex;
 	align-items: center;
-    flex-wrap: wrap;
 
 	margin-top: 6px;
 }
@@ -101,38 +94,21 @@ body{
 	background: #FFFFFF;
 	border-radius: 2px;
 	
-	font-family: 'Roboto';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 16px;
-	
-
 	width: 375px;
 	height: 40px;
 	padding-left: 7px;
 	display: flex;
-    flex-wrap: wrap;
-
 	align-items: center;
 	margin-top: 6px;
 }
 .msg-status{
 	background: #DCDCDC;
 	border-radius: 2px;
-
-    font-family: 'Roboto';
-	font-style: normal;
-	font-weight: 400;
-	font-size: 14px;
-	line-height: 16px;
-
 	
 	width: 375px;
 	height: 40px;
 	padding-left: 7px;
 	display: flex;
-    flex-wrap: wrap;
 	align-items: center;
 	margin-top: 6px;
 }
@@ -175,12 +151,4 @@ body{
 }
 .negrito{
 	font-weight: bold;
-}
-
-.esconder{
-	display:none;
-}
-
-span {
-    font-weight: bold;
 }

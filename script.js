@@ -1,68 +1,186 @@
 
-/*
-&nbsp - significa o tab (html entities)
-*/
+let nomeUsuario = prompt("Qual é o seu nome?");
 
-buscarMsgs();
-function buscarMsgs() {
-    // console.log('setInterval funcionando')
-    const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
-     console.log(promessa)
-     promessa.then(processarResposta)
+if (nomeUsuario !== null) {
+     inserirDadosBatePapo(nomeUsuario);
+     
 }
 
 
-setInterval(buscarMsgs,3000);
+// buscarDadosBatePapo();
 
-function processarResposta(resposta) {
-    console.log(resposta.data);
-    popularTela(resposta.data);
+function buscarDadosBatePapo() {
+    const promessa = axios.get("https://mock-api.driven.com.br/api/v6/uol/messages");    
+    promessa.then(renderizarBatePapo); //Agenda para tratar o sucesso, ou seja, trazer os dados
+    //promessa.catch(tratarErro); // Agenda para tratar algum erro;
+
+    
 }
 
-function popularTela(mensagens) {
-   
-    for(let i=0; i < mensagens.length ; i ++) {
-        switch(mensagens[i].type) {
-            case 'status' : msgstatus(mensagens[i])
-            // break;
-            case 'message' : msgNormal(mensagens[i])
-            // break;
-            default: msgReservada(mensagens[i])
-        }
-        console.log(mensagens[i])
+ 
+
+  
+
+//
+  let responsavel, destindestinatario, texto, tempo, tipo;  
+  innerHTML = '';  
+  
+  function renderizarBatePapo(resposta) {     
+        const objetoDadosUol = resposta.data;
+        // console.log('objetoDadosUol',objetoDadosUol);
+            
+
+        for(let i = 0; i < objetoDadosUol.length; i++){                
+                responsavel = objetoDadosUol[i].from;
+                destinatario = objetoDadosUol[i].to;
+                texto = objetoDadosUol[i].text; 
+                tempo = objetoDadosUol[i].time;                
+                tipo = objetoDadosUol[i].type; 
+
+                
+                
+                switch (tipo) {
+                  case 'status':
+                     msgStatus();
+                 break;
+                case 'private_message':
+                    msgReservada();
+                break;
+                case 'message':
+                    msgReservada();
+                break;                 
+       
+          }
+
     }
-}
-const html = document.querySelector('.painel-msgs');
-// html.innerHTML='';
 
-function msgstatus(mensagem){
+    rolagemAutomatica();
+
+  } 
+
+  const lista = document.querySelector('.listaPapos')
+//   console.log('lista', lista);
+
+  function msgStatus(){        
+        lista.innerHTML += `
+                           <li class="msg-status">
+                                (${tempo})&nbsp<span>${responsavel}</span>&nbsp${texto}                                                                     
+                           </li>   
+                           `;       
+
+  } 
+
+  function msgReservada(){
+        //   console.log(tipo) //reservadamente
+          
+        //   console.log('nomeUsuario', nomeUsuario);
+        //   console.log('destinatario', destinatario);
+          if(nomeUsuario !== destinatario ) {
+            lista.classList.add('.esconder');
+          }
+
+           lista.innerHTML += `
+           <li class="msg-reservada">
+               (${tempo})&nbsp<span>${responsavel}</span>&nbspreservadamente para&nbsp<span>${destinatario}</span>:&nbsp${texto}                                                                     
+           </li>   
+           `;  
+  } 
+   
+  function msgnormal(){
+
+        lista.innerHTML += `
+          <li class="msg-normal">
+               (${tempo})&nbsp<span>${responsavel}</span>&nbsppara&nbsp<span>${destinatario}</span>:&nbsp${texto}                                                                     
+          </li>   
+          `;  
+  } 
+   
+
+  function rolagemAutomatica() {  
+    const ultimaMsg = document.querySelector('.listaPapos>:last-child');    
+    ultimaMsg.scrollIntoView();
+
+  }
+
+
+  function inserirDadosBatePapo(usuario){
+    const nome = {
+        name: usuario
+    }
+
+  
+    const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",nome);
+     
+    promessa.then(buscarDadosBatePapo); //Agenda para tratar o sucesso, ou seja, trazer os dados
+    promessa.then(setInterval(buscarDadosBatePapo, 3000));
+    promessa.then(setInterval(ativarConexao, 5000));
+    promessa.catch(tratarErro); // Agenda para tratar algum erro;
+
+  }
+
+  function tratarErro(erro) {
+      console.log(erro.response.status)
+
+      if (erro.response.status === 400) {
+        nomeUsuario = prompt("Já existe um usuário com este nome! Por genteleza, informar um novo nome:");
+        if (nomeUsuario !== null) {
+            inserirDadosBatePapo(nomeUsuario);
+        }
+      }      
+  }
+
+
+
+
+  
+  function ativarConexao() {
+    const nome = {
+       
+        name: nomeUsuario
+    }
+    const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/status",nome);  
+   
+   
+  }
+
+
+  function enviarMsg() {
+    console.log('entrei aqui');
+     const mensagemenviada = document.querySelector('.rodape .texto').value;
+     console.log(mensagemenviada);
     
-    
-     const texto = `(${mensagem.time}) &nbsp <span class="negrito">${mensagem.from}</span> &nbsp ${mensagem.text} `
-    // const texto = `(${mensagem.time}) ${" "}  <span class="negrito">${mensagem.from}</span> ${mensagem.text} `
-    console.log(texto)
-    html.innerHTML +=  `
-                            <div class="msg-status"> ${texto}
-                            </div>
-                            `
-}
+    const mensagem = {
+        from: nomeUsuario,
+        to: "Todos",
+        text: mensagemenviada,
+        type: "message" 
+    }
+    const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",mensagem);
+    promessa.then(mensagemSucesso);
+    promessa.catch(tratarErroEnvio); // Agenda para tratar algum erro;
+   
+  }
 
-function msgNormal(mensagem){
-    const texto = `(${mensagem.time}) &nbsp <span class="negrito">${mensagem.from}</span> &nbsp ${mensagem.text} `
-    console.log(texto)
-    html.innerHTML +=  `
-                            <div class="msg-normal"> ${texto}
-                            </div>
-                            `
+  function mensagemSucesso() {
+     console.log('Sua msg foi enviada!')
+  }
 
-}
+  function tratarErroEnvio() {
+    console.log('Sua msg deu erro!')
+ }
 
-function msgReservada(mensagem){
-    const texto = `(${mensagem.time}) &nbsp <span class="negrito">${mensagem.from}</span> reservadamente para <span class="negrito">${mensagem.to}</span>: &nbsp ${mensagem.text} `
-    console.log(texto)
-    html.innerHTML +=  `
-                            <div class="msg-reservada"> ${texto}
-                            </div>
-                            `
 
-}
+// function tratarErro(erro) {
+//       console.log("Status code: " + erro.response.status); // Ex: 404
+// 	  console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
+// }
+
+
+// function salvarDadosBatePapo() {
+//     const dados = {...};
+//     const requisicao = axios.post('http://...', dados);
+
+//     requisicao.then(tratarSucesso);
+//     requisicao.catch(tratarError);
+
+// }
