@@ -47,7 +47,7 @@ function buscarDadosBatePapo() {
                     msgReservada();
                 break;
                 case 'message':
-                    msgReservada();
+                    msgnormal();
                 break;                 
        
           }
@@ -162,7 +162,7 @@ function buscarDadosBatePapo() {
   }
 
   function mensagemSucesso() {
- 
+    /*obter novamente as mensagens do servidor e atualizar o chat*/
 
     console.log('Sua msg foi enviada!')
     // mensagemenviada = document.querySelector('.rodape .texto').value;
@@ -172,6 +172,9 @@ function buscarDadosBatePapo() {
 
   function tratarErroEnvio() {
     console.log('Sua msg deu erro!')
+    /*página atualizada e pedir nome do usuário
+        Dica: experimente usar window.location.reload()
+    */
  }
 
 
@@ -180,12 +183,3 @@ function buscarDadosBatePapo() {
 // 	  console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
 // }
 
-
-// function salvarDadosBatePapo() {
-//     const dados = {...};
-//     const requisicao = axios.post('http://...', dados);
-
-//     requisicao.then(tratarSucesso);
-//     requisicao.catch(tratarError);
-
-// }
