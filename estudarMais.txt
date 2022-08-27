@@ -1,0 +1,39 @@
+
+//sessionStorage
+let nomeUsuario = prompt("Qual é o seu nome?");
+sessionStorage.setItem('user', nomeUsuario)
+
+if (nomeUsuario !== null) {    
+     inserirDadosBatePapo( sessionStorage.getItem('user') );
+     
+}
+
+
+//colocar uma função assíncrona
+let registrou;
+async function registrarUsuarioSala() {
+  const dados = {
+    name: nomeUsuario
+  }
+  
+  do { 
+    
+
+    try {
+      const response = await axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", dados)
+      registrou = true;
+  
+    } catch (error) {
+      if(error.response.status === 400){
+        
+        registrou = false;
+      }
+      
+    }
+
+  } while (!registrou && (nomeUsuario = prompt("Já existe um usuário com este nome! Por genteleza, informar um novo nome:")) )
+
+
+
+
+}
