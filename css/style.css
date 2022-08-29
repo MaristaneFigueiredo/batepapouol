@@ -73,7 +73,7 @@ body{
 	/* background-color: #E5E5E5;	 */
 	background-color: #F3F3F3;
 	margin-top: 22px;
-	margin-bottom: 2px;
+	margin-bottom: 83px;
 	
 	/* width: 375px; */
 	padding-top: 22px; 
@@ -215,11 +215,11 @@ span {
 } */
 
 
- @media (min-width: 376px){
+ /* @media (min-width: 376px){
     .painel-msgs{        
         
 		height:835px;
-    }
+    } */
 
   
 } 

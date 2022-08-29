@@ -12,6 +12,7 @@ do {
 console.log('nomeUsuario', nomeUsuario);
 
 inserirDadosBatePapo(nomeUsuario);
+buscarDadosBatePapo();
 ativarSetInterval() ;
 
 
@@ -27,7 +28,8 @@ function buscarDadosBatePapo() {
 }
 
 function buscaDadosErro() {
-    console.log('deu ruim na busca dos dados')
+    alert("ocorreu um erro, tente novamente mais tarde")
+    console.log (err.response) 
 }
 
 
@@ -129,13 +131,31 @@ function tratarSucessoInsercao() {
     console.log('usuário foi inserido no bate papo com sucesso!')
 
 }
+// function tratarErroInsercao(erro) {
+//     console.log('erro na inserção de dados', erro.response.status)
+
+//     if (erro.response.status === 400) {
+//         nomeUsuario = prompt("Já existe um usuário com este nome! Por genteleza, informar um novo nome:");
+//         if (nomeUsuario !== null) {
+//             console.log('nomeUsuario', nomeUsuario)
+//             inserirDadosBatePapo(nomeUsuario);
+//         }
+//     }
+// }
+
+
 function tratarErroInsercao(erro) {
     console.log('erro na inserção de dados', erro.response.status)
 
     if (erro.response.status === 400) {
-        nomeUsuario = prompt("Já existe um usuário com este nome! Por genteleza, informar um novo nome:");
+       
+        do {
+            nomeUsuario = prompt("Já existe um usuário com este nome! Por genteleza, informar um novo nome:");
+        } while (nomeUsuario == "" || nomeUsuario == null)  
+       
+        
         if (nomeUsuario !== null) {
-            console.log('nomeUsuario', nomeUsuario)
+            // console.log('nomeUsuario', nomeUsuario)
             inserirDadosBatePapo(nomeUsuario);
         }
     }
