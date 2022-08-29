@@ -219,6 +219,7 @@ function enviarMsg() {
             text: mensagemenviada,
             type: "message"
         }
+        document.querySelector('.rodape .texto').value = '';
         const promessa = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", mensagem);
         promessa.then(mensagemSucesso);
         promessa.catch(tratarErroEnvio); // Agenda para tratar algum erro;
@@ -230,7 +231,7 @@ function enviarMsg() {
 
 
 function mensagemSucesso() {
-    document.querySelector('.rodape .texto').value = '';
+    // document.querySelector('.rodape .texto').value = '';
     // enviandoMsg = true;
     buscarDadosBatePapo();
     ativarSetInterval(); // ativa pq a msg já foi enviada
